@@ -1,5 +1,4 @@
 import datetime
-import locale
 import re
 import os
 
@@ -9,8 +8,22 @@ os.environ["SCRAPERWIKI_DATABASE_NAME"] = "sqlite:///data.sqlite"
 
 import scraperwiki
 
-# for date parsing
-locale.setlocale(locale.LC_ALL, "de_De")
+# morph does not support setting locale in python, so we have to do it like this
+months = [
+    "Januar",
+    "Februar",
+    "März",
+    "April",
+    "Mai",
+    "Juni",
+    "Juli",
+    "August",
+    "September",
+    "Oktober",
+    "November",
+    "Dezember",
+]
+monts_num = [[m, str(i + 1).rjust(2, "0")] for i, m in enumerate(months)]
 
 
 def process_page(doc):
@@ -26,7 +39,11 @@ def process_page(doc):
 
         date_raw = entry.xpath(".//span[@class='posted-on']/a/text()")[0].strip()
 
-        date = datetime.datetime.strptime(date_raw, "%d. %B %Y").isoformat()
+        for m, i in monts_num:
+            date_raw = date_raw.replace(m, i)
+
+        date = datetime.datetime.strptime(date_raw, "%d. %m %Y").isoformat()
+
         text = " ".join(entry.xpath("//div[@class='entry-content']/p/text()"))
 
         # print(location)
