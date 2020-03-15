@@ -59,7 +59,7 @@ def process_page(doc):
         for m, i in monts_num:
             date_raw = date_raw.replace(m, i)
 
-        date = datetime.datetime.strptime(date_raw, "%d. %m %Y").isoformat()
+        date = datetime.datetime.strptime(date_raw, "%d. %m %Y")
 
         text = " ".join(entry.xpath(".//div[@class='entry-content']/p/text()"))
 
