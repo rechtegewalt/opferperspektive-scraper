@@ -3,7 +3,7 @@
 Scraping right-wing incidents in Brandenburg, Germany as monitored by the NGO [Opferperspektive](https://www.opferperspektive.de/).
 
 -   Website: https://www.opferperspektive.de/category/rechte-angriffe/chronologie-rechter-angriffe
--   Data: https://morph.io/jfilter/opferperspektive-scraper
+-   Data: https://morph.io/dmedak/opferperspektive-scraper
 
 ## Usage
 

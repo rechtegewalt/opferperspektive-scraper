@@ -29,9 +29,16 @@ monts_num = [[m, str(i + 1).rjust(2, "0")] for i, m in enumerate(months)]
 def process_page(doc):
     for entry in doc.xpath("//article"):
         uri = entry.xpath("./header/h2/a/@href")[0]
+        # print(uri)
 
-        # TODO: sources is not clean, occasionally, there are multiple sources in one field
         sources = entry.xpath(".//li[@class='quelle']/a/text()")
+        if len(sources) > 0:
+            sources = sources[0]
+            sources = sources.split(",")
+            sources = [s.strip() for s in sources]
+        else:
+            sources = None
+
         city = entry.xpath(".//li[@class='stadt']/a/text()")
 
         # sometimes, there is no city in the field
@@ -43,9 +50,9 @@ def process_page(doc):
         county = entry.xpath(".//li[@class='landkreis']/a/text()")
         if len(county) > 0:
             county = county[0]
-            location = ", ".join([city, county, "Brandenburg", "Germany"])
+            location = ", ".join([city, county, "Brandenburg", "Deutschland"])
         else:
-            location = ", ".join([city, "Brandenburg", "Germany"])
+            location = ", ".join([city, "Brandenburg", "Deutschland"])
 
         date_raw = entry.xpath(".//span[@class='posted-on']/a/text()")[0].strip()
 
@@ -57,7 +64,6 @@ def process_page(doc):
         text = " ".join(entry.xpath(".//div[@class='entry-content']/p/text()"))
 
         # print(location)
-        # print(sources)
         # print(date)
         # print(text)
 
@@ -78,12 +84,13 @@ def process_page(doc):
             table_name="location",
         )
 
-        for s in sources:
-            scraperwiki.sqlite.save(
-                unique_keys=["reportURI"],
-                data={"name": s, "reportURI": uri},
-                table_name="source",
-            )
+        if not sources is None:
+            for s in sources:
+                scraperwiki.sqlite.save(
+                    unique_keys=["reportURI"],
+                    data={"name": s, "reportURI": uri},
+                    table_name="source",
+                )
 
 
 base_url = "http://www.opferperspektive.de/category/rechte-angriffe/chronologie-rechter-angriffe/page/%s"
