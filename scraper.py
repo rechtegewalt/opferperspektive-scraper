@@ -1,5 +1,4 @@
 import datetime
-import re
 import os
 
 import lxml.html
@@ -75,15 +74,10 @@ def process_page(doc):
                 "iso3166_2": "DE-BB",
                 "url": uri,
                 "identifier": uri,
+                "subdivisions": location,
                 "aggregator": "Opferperspektive (Brandenburg)",
             },
             table_name="incidents",
-        )
-
-        scraperwiki.sqlite.save(
-            unique_keys=["identifier"],
-            data={"subdivisions": location, "identifier": uri},
-            table_name="locations",
         )
 
         if not sources is None:
