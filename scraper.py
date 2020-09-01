@@ -64,10 +64,6 @@ def process_page(doc):
 
         text = " ".join(entry.xpath(".//div[@class='entry-content']/p/text()"))
 
-        # print(location)
-        # print(date)
-        # print(text)
-
         scraperwiki.sqlite.save(
             unique_keys=["rg_id"],
             data={
@@ -89,6 +85,8 @@ def process_page(doc):
                     data={"name": s, "rg_id": uri},
                     table_name="sources",
                 )
+        # force commit to prevent duplicates
+        scraperwiki.sqlite.commit_transactions()
 
 
 base_url = "http://www.opferperspektive.de/category/rechte-angriffe/chronologie-rechter-angriffe/page/%s"
