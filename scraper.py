@@ -85,7 +85,9 @@ def process_page(doc):
                     data={"name": s, "rg_id": uri},
                     table_name="sources",
                 )
+
         # force commit to prevent duplicates
+        # https://github.com/sensiblecodeio/scraperwiki-python/issues/107
         scraperwiki.sqlite.commit_transactions()
 
 
