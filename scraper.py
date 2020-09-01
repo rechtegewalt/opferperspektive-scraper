@@ -24,6 +24,8 @@ months = [
 ]
 monts_num = [[m, str(i + 1).rjust(2, "0")] for i, m in enumerate(months)]
 
+DEBUG = False
+
 
 def process_page(doc):
     for entry in doc.xpath("//article"):
@@ -73,7 +75,7 @@ def process_page(doc):
                 "date": date,
                 "iso3166_2": "DE-BB",
                 "url": uri,
-                "identifier": uri,
+                "rg_id": uri,
                 "subdivisions": location,
                 "aggregator": "Opferperspektive (Brandenburg)",
             },
@@ -92,6 +94,7 @@ def process_page(doc):
 base_url = "http://www.opferperspektive.de/category/rechte-angriffe/chronologie-rechter-angriffe/page/%s"
 urls = [base_url % i for i in range(1, 1000)]
 for url in urls:
+    DEBUG and print(urls)
     try:
         html = scraperwiki.scrape(url)
     except:
