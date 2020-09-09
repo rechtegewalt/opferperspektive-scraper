@@ -75,7 +75,9 @@ def process_page(doc):
                 "url": uri,
                 "rg_id": uri,
                 "subdivisions": location,
-                "aggregator": "Opferperspektive (Brandenburg)",
+                "chronicler_name": "Opferperspektive (Brandenburg)",
+                "chronicler_url": "https://www.opferperspektive.de/",
+                "chronicle_source": "https://www.opferperspektive.de/category/rechte-angriffe/chronologie-rechter-angriffe",
             },
             table_name="incidents",
         )
