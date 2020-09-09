@@ -48,12 +48,14 @@ def process_page(doc):
         else:
             city = city[0]
 
+        city = city.strip()
         county = entry.xpath(".//li[@class='landkreis']/a/text()")
-        if len(county) > 0:
-            county = county[0]
-            location = ", ".join([city, county, "Brandenburg", "Deutschland"])
+        # Avoid `Landkreis` for `Kreisfreie Städte`
+        if len(county) > 0 and city != county[0].strip():
+            county = county[0].strip()
+            location = str([city, ["Landkreis", county]])
         else:
-            location = ", ".join([city, "Brandenburg", "Deutschland"])
+            location = str([city])
 
         date_raw = entry.xpath(".//span[@class='posted-on']/a/text()")[0].strip()
 
