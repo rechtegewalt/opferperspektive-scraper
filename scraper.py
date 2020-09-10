@@ -71,13 +71,10 @@ def process_page(doc):
             data={
                 "description": text,
                 "date": date,
-                "iso3166_2": "DE-BB",
                 "url": uri,
                 "rg_id": uri,
                 "subdivisions": location,
-                "chronicler_name": "Opferperspektive (Brandenburg)",
-                "chronicler_url": "https://www.opferperspektive.de/",
-                "chronicle_source": "https://www.opferperspektive.de/category/rechte-angriffe/chronologie-rechter-angriffe",
+                "chronicler_name": "Opferperspektive",
             },
             table_name="incidents",
         )
@@ -106,3 +103,20 @@ for url in urls:
         break
     doc = lxml.html.fromstring(html)
     process_page(doc)
+
+# save meta data
+
+scraperwiki.sqlite.save(
+    unique_keys=["chronicler_name"],
+    data={
+        "iso3166_1": "DE",
+        "iso3166_2": "DE-BB",
+        "chronicler_name": "Opferperspektive",
+        "chronicler_description": "Die Opferperspektive bietet seit 1998 im Land Brandenburg eine professionelle Beratung für Betroffene rechter Gewalt und rassistischer Diskriminierung, deren Freundinnen, Angehörige und Zeuginnen an. Die Beratung ist kostenlos, vertraulich, parteilich und unabhängig von staatlichen Behörden.",
+        "chronicler_url": "https://www.opferperspektive.de/",
+        "chronicle_source": "https://www.opferperspektive.de/category/rechte-angriffe/chronologie-rechter-angriffe",
+    },
+    table_name="chronicle",
+)
+
+scraperwiki.sqlite.commit_transactions()
