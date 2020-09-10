@@ -2,8 +2,8 @@
 
 Scraping right-wing incidents in Brandenburg, Germany as monitored by the NGO [Opferperspektive](https://www.opferperspektive.de/).
 
--   Website: https://www.opferperspektive.de/category/rechte-angriffe/chronologie-rechter-angriffe
--   Data: https://morph.io/dmedak/opferperspektive-scraper
+-   Website: <https://www.opferperspektive.de/category/rechte-angriffe/chronologie-rechter-angriffe>
+-   Data: <https://morph.io/dmedak/opferperspektive-scraper>
 
 ## Usage
 
@@ -21,8 +21,8 @@ For Morph:
 
 ## Morph
 
-This is a scraper that runs on [Morph](https://morph.io). To get started [see the documentation](https://morph.io/documentation)
+This is scraper runs on [morph.io](https://morph.io). To get started [see the documentation](https://morph.io/documentation).
 
 ## License
 
-MIT.
+MIT
