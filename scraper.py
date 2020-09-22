@@ -53,9 +53,8 @@ def process_page(doc):
         # Avoid `Landkreis` for `Kreisfreie Städte`
         if len(county) > 0 and city != county[0].strip():
             county = county[0].strip()
-            location = str([city, ["Landkreis", county]])
         else:
-            location = str([city])
+            county = None
 
         date_raw = entry.xpath(".//span[@class='posted-on']/a/text()")[0].strip()
 
@@ -73,7 +72,8 @@ def process_page(doc):
                 "date": date,
                 "url": uri,
                 "rg_id": uri,
-                "subdivisions": location,
+                "city": city,
+                "county": county,
                 "chronicler_name": "Opferperspektive",
             },
             table_name="incidents",
